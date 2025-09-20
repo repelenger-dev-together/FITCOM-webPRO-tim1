@@ -34,7 +34,10 @@
         <label for="gambar" class="form-label">Gambar Produk</label>
         <input type="file" class="form-control" id="gambar" name="gambar" accept="image/*" required>
       </div>
-      <button type="submit" class="btn btn-primary w-100">Tambah Produk</button>
+      <div class="d-flex justify-content-between">
+        <button type="submit" class="btn btn-primary w-40" style="width: 150px;">Tambah Produk</button>
+        <a href="index.php"><button type="submit" class="btn btn-danger w-40" style="width: 150px;">Cancel</button> </a>
+      </div>
     </form>
   </div>
 </div>
