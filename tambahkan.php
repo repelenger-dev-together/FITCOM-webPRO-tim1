@@ -1,3 +1,16 @@
+<?php 
+require 'koneksi.php';
+
+if (isset($_POST['submit'])) {
+  if (tambah($_POST) > 0) {
+    echo "<script>alert('Produk berhasil ditambahkan');document.location.href='index.php';</script>";
+  } else {
+    echo "<script>alert('Produk gagal ditambahkan');</script>";
+  }
+}
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -32,10 +45,10 @@
       </div>
       <div class="mb-3">
         <label for="gambar" class="form-label">Gambar Produk</label>
-        <input type="file" class="form-control" id="gambar" name="gambar" accept="image/*" required>
+        <input type="file" class="form-control" id="gambar" name="gambar" required>
       </div>
       <div class="d-flex justify-content-between">
-        <button type="submit" class="btn btn-primary w-40" style="width: 150px;">Tambah Produk</button>
+        <button type="submit" name="submit" class="btn btn-primary w-40" style="width: 150px;">Tambah Produk</button>
         <a href="index.php"><button type="submit" class="btn btn-danger w-40" style="width: 150px;">Cancel</button> </a>
       </div>
     </form>

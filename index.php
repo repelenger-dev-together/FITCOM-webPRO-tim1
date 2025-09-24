@@ -1,4 +1,10 @@
+<?php
+require 'koneksi.php';
 
+$produks = baca("SELECT * FROM Produk");
+
+
+?> 
 
 <!DOCTYPE html>
 <html lang="en">
@@ -48,13 +54,26 @@
         </tr>
       </thead>
       <tbody id="produkTabel">
+        <?php foreach($produks as $produk) :?>
         <tr>
-          <td>
-            <a href="edit.php">
+           <td>
+            <a href="edit.php?ubah=<?= $produk['id'] ?>">
               <button class="btn btn-primary btn-sm">edit</button>
+            </a> 
+            <a href="hapus.php?id=<?= $produk['id']; ?>" 
+              onclick="return confirm('Yakin hapus produk ini?');" 
+              class="btn btn-danger btn-sm">
+              Hapus
             </a>
           </td>
+          <td><img src="<?= $produk['gambar']; ?>" alt="" width="170"> </td>
+          <td><?= $produk['kode'] ?></td>
+          <td><?= $produk['nama']; ?> </td>
+          <td><?= $produk['satuan']; ?> </td>
+          <td><?= $produk['harga']; ?> </td>
+         
         </tr>
+        <?php endforeach; ?>
       </tbody>
     </table>
   </div>
