@@ -1,6 +1,6 @@
 <?php
 
-$conn = mysqli_connect("localhost", "root", "12345", "farm");
+$conn = mysqli_connect("localhost", "root", "", "farm");
 
 function baca($query) {
     global $conn;
