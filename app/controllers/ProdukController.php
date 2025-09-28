@@ -14,7 +14,7 @@ class ProdukController {
     // List semua produk
     public function index() {
         $produks = $this->produk->getAll();
-        include "../app/views/produk/index.php";
+        require __DIR__ . '/../views/produk/index.php';
     }
 
     // Tambah produk baru
