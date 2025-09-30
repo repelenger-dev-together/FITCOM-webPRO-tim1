@@ -91,8 +91,8 @@ $produks = $produks ?? [];
           <thead>
             <tr>
               <th class="text-center">Gambar</th>
-              <th>Kode</th>
-              <th>Nama</th>
+              <th class="text-center">Kode</th>
+              <th class="text-center">Nama</th>
               <th class="text-center">Satuan</th>
               <th class="text-center">Harga</th>
               <th class="text-center">Aksi</th>
@@ -102,10 +102,13 @@ $produks = $produks ?? [];
             <?php foreach ($produks as $produk): ?>
             <tr>
               <td data-label="Gambar" class="text-center">
-                <img src="<?= $produk['gambar']; ?>" class="product-image" alt="<?= $produk['nama']; ?>">
+               <img src="/FITCOM-webPRO-tim1/public/assets/img/<?= $produk['gambar']; ?>" 
+     class="product-image" 
+     alt="<?= $produk['nama']; ?>">
+
               </td>
-              <td data-label="Kode"><span class="badge bg-info"><?= $produk['kode']; ?></span></td>
-              <td data-label="Nama"><?= $produk['nama']; ?></td>
+              <td data-label="Kode" class="text-center"><span class="badge bg-info"><?= $produk['kode']; ?></span></td>
+              <td data-label="Nama" class="text-center"><?= $produk['nama']; ?></td>
               <td data-label="Satuan" class="text-center"><?= $produk['satuan']; ?></td>
               <td data-label="Harga" class="text-center fw-bold text-success">Rp <?= number_format($produk['harga'],0,',','.'); ?></td>
               <td data-label="Aksi" class="text-center">

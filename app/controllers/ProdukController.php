@@ -25,16 +25,24 @@ class ProdukController {
             $this->produk->satuan = $_POST['satuan'];
             $this->produk->harga  = $_POST['harga'];
 
-            if(isset($_FILES['gambar']) && $_FILES['gambar']['error'] === 0) {
-                $namaFile = basename($_FILES['gambar']['name']);
-                $tmpName  = $_FILES['gambar']['tmp_name'];
-                $targetDir = "../public/assets/img/";
+            // Handle upload gambar
+            if (isset($_FILES['gambar']) && $_FILES['gambar']['error'] === 0) {
+                $namaFile  = uniqid() . "_" . basename($_FILES['gambar']['name']);
+                $tmpName   = $_FILES['gambar']['tmp_name'];
 
-                if(move_uploaded_file($tmpName, $targetDir . $namaFile)) {
+                // Path absolut ke folder public/assets/img
+                $targetDir = $_SERVER['DOCUMENT_ROOT'] . "/FITCOM-webPRO-tim1/public/assets/img/";
+
+                // Pastikan folder ada
+                if (!is_dir($targetDir)) {
+                    mkdir($targetDir, 0777, true);
+                }
+
+                // Pindahkan file
+                if (move_uploaded_file($tmpName, $targetDir . $namaFile)) {
                     $this->produk->gambar = $namaFile;
                 } else {
-                    echo "Gagal upload gambar.";
-                    return;
+                    die("⚠️ Gagal upload gambar ke folder: " . $targetDir);
                 }
             } else {
                 $this->produk->gambar = null;
@@ -42,6 +50,7 @@ class ProdukController {
 
             $this->produk->insert();
             header("Location: index.php");
+            exit;
         }
         include "../app/views/produk/tambah.php";
     }
@@ -56,24 +65,30 @@ class ProdukController {
             $this->produk->satuan = $_POST['satuan'];
             $this->produk->harga  = $_POST['harga'];
 
-            if(isset($_FILES['gambar']) && $_FILES['gambar']['error'] === 0) {
-                $namaFile = basename($_FILES['gambar']['name']);
-                $tmpName  = $_FILES['gambar']['tmp_name'];
-                $targetDir = "../public/assets/img/";
+            // Handle upload gambar baru
+            if (isset($_FILES['gambar']) && $_FILES['gambar']['error'] === 0) {
+                $namaFile  = uniqid() . "_" . basename($_FILES['gambar']['name']);
+                $tmpName   = $_FILES['gambar']['tmp_name'];
 
-                if(move_uploaded_file($tmpName, $targetDir . $namaFile)) {
+                $targetDir = $_SERVER['DOCUMENT_ROOT'] . "/FITCOM-webPRO-tim1/public/assets/img/";
+
+                if (!is_dir($targetDir)) {
+                    mkdir($targetDir, 0777, true);
+                }
+
+                if (move_uploaded_file($tmpName, $targetDir . $namaFile)) {
                     $this->produk->gambar = $namaFile;
                 } else {
-                    echo "Gagal upload gambar.";
-                    return;
+                    die("⚠️ Gagal upload gambar ke folder: " . $targetDir);
                 }
             } else {
-                // Jika tidak ganti gambar, tetap pakai yang lama
+                // Kalau tidak ada upload baru, pakai gambar lama
                 $this->produk->gambar = $produk['gambar'];
             }
 
             $this->produk->update();
             header("Location: index.php");
+            exit;
         }
         include "../app/views/produk/edit.php";
     }
@@ -82,5 +97,6 @@ class ProdukController {
     public function hapus($id) {
         $this->produk->delete($id);
         header("Location: index.php");
+        exit;
     }
 }
